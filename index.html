@@ -1,79 +1,116 @@
-<div class="glass p-10 space-y-8 animate__animated animate__fadeInLeft">
-    <div class="flex items-center gap-3 mb-2">
-        <i class="fa-solid fa-pen-to-square text-[#14F195]"></i>
-        <h3 class="text-2xl font-bold tracking-tight">Registration Office</h3>
-    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solana Passport | Baghi Edition</title>
     
-    <div class="space-y-6">
-        <div>
-            <label class="text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2 block">Student Name</label>
-            <input type="text" id="nameIn" placeholder="Full Name" class="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 focus:border-[#14F195] outline-none text-white font-bold">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #020617; color: white; overflow-x: hidden; }
+        .mesh-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(circle at 5% 5%, rgba(153, 69, 255, 0.1) 0%, transparent 40%), radial-gradient(circle at 95% 95%, rgba(20, 241, 149, 0.1) 0%, transparent 40%); }
+        .glass { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; }
+        .neon-glow { box-shadow: 0 0 30px rgba(20, 241, 149, 0.15); border: 1px solid rgba(20, 241, 149, 0.4); }
+        .logo-container { background: white; padding: 8px; border-radius: 18px; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; }
+        .passport-card { background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.01) 100%); border-left: 5px solid #14F195; }
+    </style>
+</head>
+<body>
+    <div class="mesh-bg"></div>
+
+    <nav class="container mx-auto px-6 py-8 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <div class="logo-container"><img src="https://www.umt.edu.pk/images/UMT-Logo.png" class="h-10"></div>
+            <div>
+                <span class="font-black text-2xl tracking-tighter uppercase">Sol<span class="text-[#14F195]">Passport</span></span>
+                <p class="text-[9px] text-green-400 font-bold tracking-widest uppercase">Baghi Protocol</p>
+            </div>
         </div>
-        
-        <div>
-            <label class="text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2 block">UMT Roll Number</label>
-            <input type="text" id="idIn" placeholder="F2021-000" class="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 focus:border-[#14F195] outline-none text-white font-bold">
+        <button id="connectBtn" class="glass px-6 py-2 rounded-xl text-sm font-bold border border-white/10 flex items-center gap-2">
+            <i class="fa-solid fa-wallet text-[#14F195]"></i> Connect Wallet
+        </button>
+    </nav>
+
+    <main class="container mx-auto px-6 py-10">
+        <div class="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+            
+            <div class="glass p-10 space-y-6 animate__animated animate__fadeInLeft">
+                <h3 class="text-2xl font-bold border-b border-white/10 pb-4">Registration Office</h3>
+                <input type="text" id="nameIn" placeholder="Student Name" class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-[#14F195]">
+                <input type="text" id="idIn" placeholder="Roll Number" class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-[#14F195]">
+                
+                <div class="bg-white/5 p-4 rounded-xl border border-white/10 flex items-center gap-3">
+                    <input type="checkbox" id="humanCheck" class="w-4 h-4 accent-[#14F195]">
+                    <span class="text-xs font-bold text-gray-400 uppercase">I am Human (No Bot)</span>
+                </div>
+
+                <button id="mintBtn" disabled class="w-full bg-gray-700 text-gray-500 py-4 rounded-xl font-black uppercase text-xs cursor-not-allowed">Mint Identity</button>
+            </div>
+
+            <div class="space-y-6 animate__animated animate__fadeInRight">
+                <div class="glass passport-card p-10 h-64 flex flex-col justify-between">
+                    <div class="flex justify-between items-start">
+                        <span class="bg-[#14F195]/10 border border-[#14F195]/30 px-3 py-1 rounded-lg text-[9px] font-black text-[#14F195]">VERIFIED STUDENT</span>
+                        <img src="https://www.umt.edu.pk/images/UMT-Logo.png" class="h-6 brightness-200 opacity-50">
+                    </div>
+                    <div>
+                        <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest">Name</p>
+                        <h2 id="prevName" class="text-3xl font-black uppercase truncate">---</h2>
+                    </div>
+                    <div class="flex justify-between border-t border-white/10 pt-4">
+                        <p id="prevID" class="font-mono text-sm text-[#9945FF]">#ID_PENDING</p>
+                        <p class="text-[9px] text-gray-500 font-black uppercase">Solana Devnet</p>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <a href="https://github.com/SajidMaqbool/solana-umt-passport" target="_blank" class="glass p-6 text-center hover:bg-white/5 transition border border-white/10">
+                        <i class="fa-brands fa-github text-2xl mb-2"></i><br><span class="text-[9px] font-black uppercase">Source</span>
+                    </a>
+                    <a href="https://solscan.io/account/CLEhaRz7CnTWEQNaAonRktJDyVP3YsCMQ8GEPnc2BZ5k?cluster=devnet" target="_blank" class="glass p-6 text-center hover:bg-[#14F195]/10 transition border border-[#14F195]/20">
+                        <i class="fa-solid fa-bolt text-[#14F195] text-2xl mb-2"></i><br><span class="text-[9px] font-black uppercase text-[#14F195]">SolScan</span>
+                    </a>
+                </div>
+            </div>
         </div>
+    </main>
 
-        <div class="bg-white/5 p-4 rounded-xl border border-white/10 flex items-center gap-4">
-            <input type="checkbox" id="humanCheck" class="w-5 h-5 accent-[#14F195] cursor-pointer">
-            <label for="humanCheck" class="text-sm font-bold text-gray-300 cursor-pointer select-none">
-                I am not a bot. Verify my identity.
-            </label>
-        </div>
+    <footer class="text-center py-10 opacity-40 text-[10px] font-black uppercase tracking-[0.5em]">
+        Developed by Baghi | UMT Lahore
+    </footer>
 
-        <div class="flex gap-4 pt-4">
-            <button id="mintBtn" disabled class="flex-1 bg-gray-700 text-gray-400 py-4 rounded-2xl font-black text-xs uppercase tracking-tighter cursor-not-allowed transition-all shadow-none">
-                Mint Identity
-            </button>
-            <button class="flex-1 glass py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-white/5 border border-white/10">
-                Update
-            </button>
-        </div>
-    </div>
-</div>
+    <script>
+        // Copy Paste Logic (Same as before)
+        const nameIn = document.getElementById('nameIn');
+        const idIn = document.getElementById('idIn');
+        const humanCheck = document.getElementById('humanCheck');
+        const mintBtn = document.getElementById('mintBtn');
+        let walletConnected = false;
 
-<script>
-    // --- WALLET CONNECT LOGIC ---
-    let userWallet = null;
+        nameIn.oninput = () => document.getElementById('prevName').innerText = nameIn.value || "---";
+        idIn.oninput = () => document.getElementById('prevID').innerText = idIn.value || "#ID_PENDING";
 
-    document.getElementById('connectBtn').addEventListener('click', async () => {
-        if (window.solana) {
-            try {
-                const resp = await window.solana.connect();
-                userWallet = resp.publicKey.toString();
-                document.getElementById('connectBtn').innerHTML = `<i class="fa-solid fa-circle-check text-[#14F195]"></i> ${userWallet.slice(0,4)}...${userWallet.slice(-4)}`;
-                checkReady(); // Check if ready to mint
-            } catch (err) { alert("Connection Cancelled"); }
-        } else { alert("Phantom Wallet install karein!"); }
-    });
+        document.getElementById('connectBtn').onclick = async () => {
+            if(window.solana) {
+                const r = await window.solana.connect();
+                walletConnected = true;
+                document.getElementById('connectBtn').innerText = r.publicKey.toString().slice(0,6) + "...";
+                updateBtn();
+            }
+        };
 
-    // --- HUMAN VERIFICATION LOGIC ---
-    const humanCheck = document.getElementById('humanCheck');
-    const mintBtn = document.getElementById('mintBtn');
+        humanCheck.onchange = updateBtn;
 
-    humanCheck.addEventListener('change', function() {
-        checkReady();
-    });
-
-    function checkReady() {
-        // Agar Wallet connected hai AUR human verify ho gaya hai
-        if (userWallet && humanCheck.checked) {
-            mintBtn.disabled = false;
-            mintBtn.classList.remove('bg-gray-700', 'text-gray-400', 'cursor-not-allowed');
-            mintBtn.classList.add('bg-[#14F195]', 'text-black', 'shadow-[0_10px_30px_rgba(20,241,149,0.3)]');
-            mintBtn.innerText = "Ready to Mint";
-        } else {
-            mintBtn.disabled = true;
-            mintBtn.classList.add('bg-gray-700', 'text-gray-400', 'cursor-not-allowed');
-            mintBtn.classList.remove('bg-[#14F195]', 'text-black', 'shadow-[0_10px_30px_rgba(20,241,149,0.3)]');
-            mintBtn.innerText = "Mint Identity";
+        function updateBtn() {
+            if(walletConnected && humanCheck.checked) {
+                mintBtn.disabled = false;
+                mintBtn.className = "w-full bg-[#14F195] text-black py-4 rounded-xl font-black uppercase text-xs shadow-[0_0_20px_rgba(20,241,149,0.3)]";
+            }
         }
-    }
-
-    mintBtn.addEventListener('click', () => {
-        alert("Success! Human Verified & Wallet Connected.\nSending transaction to: CLEhaRz7...");
-    });
-
-    // --
-</script>
+    </script>
+</body>
+</html>
