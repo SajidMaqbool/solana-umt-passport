@@ -46,13 +46,17 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Modified Logo Container - No White Box */
+        /* Logo Box Styling */
         .logo-container {
+            background: white;
+            padding: 8px;
+            border-radius: 18px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
         }
 
         .passport-card {
@@ -77,22 +81,16 @@
     <div class="mesh-bg"></div>
 
     <nav class="container mx-auto px-6 py-8 flex justify-between items-center animate__animated animate__fadeInDown">
-        <div class="flex items-center gap-4">
-            <!-- Modified: Transparent Logo Section -->
+        <div class="flex items-center gap-5">
             <div class="logo-container transform transition hover:scale-110">
-                <img src="https://www.umt.edu.pk/images/UMT-Logo.png" alt="UMT Logo" class="h-full w-auto brightness-110">
+                <img src="https://www.umt.edu.pk/images/UMT-Logo.png" alt="UMT Logo" style="max-width: 100%; height: auto; display: block;">
             </div>
             
-            <div class="flex flex-col">
-                <span class="font-extrabold text-xl tracking-tight leading-none text-white">UMT</span>
-                <span class="text-[10px] text-gray-400 font-medium uppercase tracking-tighter">University of Management<br>and Technology</span>
-            </div>
-
-            <div class="h-10 w-[1px] bg-white/20 mx-2"></div>
+            <div class="h-10 w-[1px] bg-white/20 mx-1"></div>
             
             <div>
-                <span class="font-black text-2xl tracking-tighter uppercase leading-none">Sol<span class="text-[#14F195]">Passport</span></span>
-                <p class="text-[8px] text-green-400 font-bold tracking-[0.2em] uppercase mt-0.5">Academic Protocol</p>
+                <span class="font-black text-3xl tracking-tighter uppercase leading-none">Sol<span class="text-[#14F195]">Passport</span></span>
+                <p class="text-[9px] text-green-400 font-bold tracking-[0.3em] uppercase mt-1">Academic Blockchain Protocol</p>
             </div>
         </div>
         
@@ -172,9 +170,8 @@
                         <div class="bg-[#14F195]/10 border border-[#14F195]/30 px-5 py-2 rounded-xl text-[10px] font-black text-[#14F195] tracking-[0.2em]">
                             STUDENT PASSPORT v1.0
                         </div>
-                        <!-- Passport Logo also adjusted -->
-                        <div class="opacity-80">
-                            <img src="https://www.umt.edu.pk/images/UMT-Logo.png" alt="Logo" class="h-10">
+                        <div class="bg-white p-1 rounded-lg">
+                            <img src="https://www.umt.edu.pk/images/UMT-Logo.png" alt="Logo" class="h-8">
                         </div>
                     </div>
 
