@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solana Passport | UMT Official</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
+
+        :root {
+            --solana-green: #14F195;
+            --solana-purple: #9945FF;
+            --umt-blue: #003366;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #020617;
+            overflow-x: hidden;
+            color: white;
+        }
+
+        /* Animated Background */
+        .mesh-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 0% 0%, rgba(153, 69, 255, 0.15) 0%, transparent 35%),
+                radial-gradient(circle at 100% 100%, rgba(20, 241, 149, 0.15) 0%, transparent 35%);
+        }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+        }
+
+        .neon-border {
+            border: 1px solid rgba(20, 241, 149, 0.3);
+            box-shadow: 0 0 20px rgba(20, 241, 149, 0.1);
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, var(--solana-green), var(--solana-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #14F195, #00C2FF);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(20, 241, 149, 0.3);
+        }
+
+        /* Passport Card Style */
+        .id-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%);
+            border-left: 4px solid var(--solana-green);
+        }
+
+        .floating { animation: floating 3s ease-in-out infinite; }
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mesh-bg"></div>
+
+    <nav class="container mx-auto px-6 py-6 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <div class="bg-white p-1 rounded-lg">
+                <img src="https://www.umt.edu.pk/images/UMT-Logo.png" alt="UMT" class="h-10">
+            </div>
+            <span class="font-extrabold text-xl tracking-tight">SOL<span class="text-[#14F195]">PASSPORT</span></span>
+        </div>
+        <button id="connectBtn" class="glass px-6 py-2.5 rounded-full text-sm font-semibold border border-white/20 hover:bg-white/10 transition flex items-center gap-2">
+            <i class="fa-solid fa-wallet"></i> Connect Wallet
+        </button>
+    </nav>
+
+    <main class="container mx-auto px-6 pt-12 pb-24">
+        
+        <div class="max-w-4xl mx-auto text-center mb-20">
+            <h1 class="text-6xl md:text-7xl font-extrabold mb-6 leading-tight">
+                Secure Your <span class="gradient-text">Identity</span> <br> on Solana.
+            </h1>
+            <p class="text-gray-400 text-lg mb-10">
+                A decentralized passport system for UMT students. Verify your academic 
+                credentials with the speed of light.
+            </p>
+            
+            <div class="glass neon-border p-4 max-w-2xl mx-auto flex items-center justify-between gap-4">
+                <div class="flex items-center gap-3 overflow-hidden">
+                    <span class="bg-green-500/20 text-green-400 text-[10px] px-2 py-1 rounded-md font-bold uppercase">Devnet</span>
+                    <code id="programId" class="text-xs text-gray-300 truncate">YOUR_PROGRAM_ID_HERE</code>
+                </div>
+                <button onclick="copyID()" class="text-gray-400 hover:text-white"><i class="fa-regular fa-copy"></i></button>
+            </div>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-12 items-start">
+            
+            <div class="glass p-10 space-y-8">
+                <h2 class="text-2xl font-bold">Update Your Record</h2>
+                
+                <div class="space-y-6">
+                    <div class="group">
+                        <label class="text-xs font-bold text-gray-500 uppercase ml-1">Full Name</label>
+                        <input type="text" id="nameInput" placeholder="Ali Ahmed" 
+                            class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 mt-2 focus:border-[#14F195] outline-none transition-all">
+                    </div>
+                    
+                    <div class="group">
+                        <label class="text-xs font-bold text-gray-500 uppercase ml-1">Student ID</label>
+                        <input type="text" id="idInput" placeholder="F2021-123" 
+                            class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 mt-2 focus:border-[#14F195] outline-none transition-all">
+                    </div>
+
+                    <div class="flex gap-4 pt-4">
+                        <button class="btn-primary flex-1 py-4 rounded-2xl font-bold text-black text-sm uppercase tracking-wider">
+                            Create Passport
+                        </button>
+                        <button class="glass flex-1 py-4 rounded-2xl font-bold text-sm uppercase tracking-wider hover:bg-white/5">
+                            Update
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-8">
+                <div class="glass id-card p-8 floating relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-6 opacity-10">
+                        <i class="fa-solid fa-shield-halved text-6xl"></i>
+                    </div>
+                    
+                    <div class="flex justify-between items-start mb-12">
+                        <div class="bg-white/10 px-3 py-1 rounded-md text-[10px] font-bold text-[#14F195]">STUDENT PASSPORT</div>
+                        <i class="fa-solid fa-wifi text-[#14F195]"></i>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div>
+                            <p class="text-[10px] text-gray-500 uppercase font-bold tracking-widest">Name</p>
+                            <h3 id="display-name" class="text-2xl font-bold">---</h3>
+                        </div>
+                        <div class="flex justify-between">
+                            <div>
+                                <p class="text-[10px] text-gray-400 uppercase font-bold tracking-widest">UMT Registration</p>
+                                <p id="display-id" class="font-mono text-sm">NOT_VERIFIED</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-[10px] text-gray-400 uppercase font-bold tracking-widest">Status</p>
+                                <p class="text-green-400 text-xs font-bold">● ACTIVE</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass p-6 flex items-center justify-between">
+                    <div>
+                        <h4 class="font-bold text-sm">Source Code</h4>
+                        <p class="text-xs text-gray-500">Check Rust & React Logic</p>
+                    </div>
+                    <a href="YOUR_GITHUB_LINK" target="_blank" class="h-12 w-12 glass flex items-center justify-center rounded-xl hover:bg-white/10 transition text-xl">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+                </div>
+
+                <button class="w-full border border-red-500/20 text-red-500 py-4 rounded-2xl text-xs font-bold hover:bg-red-500/10 transition uppercase tracking-widest">
+                    Revoke My Passport (Delete)
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="container mx-auto px-6 py-12 border-t border-white/5 text-center">
+        <p class="text-gray-500 text-xs">Built with ❤️ for UMT Blockchain Course by <span class="text-white">Faizan</span></p>
+    </footer>
+
+    <script>
+        function copyID() {
+            const id = document.getElementById('programId').innerText;
+            navigator.clipboard.writeText(id);
+            alert("ID Copied!");
+        }
+
+        // Real-time Preview logic
+        document.getElementById('nameInput').addEventListener('input', (e) => {
+            document.getElementById('display-name').innerText = e.target.value || "---";
+        });
+        document.getElementById('idInput').addEventListener('input', (e) => {
+            document.getElementById('display-id').innerText = e.target.value || "NOT_VERIFIED";
+        });
+
+        // Wallet Connection
+        document.getElementById('connectBtn').addEventListener('click', async () => {
+            if (window.solana) {
+                const res = await window.solana.connect();
+                document.getElementById('connectBtn').innerHTML = `<i class="fa-solid fa-circle-check text-green-400"></i> ${res.publicKey.toString().slice(0,4)}...${res.publicKey.toString().slice(-4)}`;
+            } else {
+                alert("Phantom Wallet not found!");
+            }
+        });
+    </script>
+</body>
+</html>
