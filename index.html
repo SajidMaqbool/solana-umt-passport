@@ -53,6 +53,8 @@
             color: #14F195;
             padding: 4px 12px; border-radius: 6px; font-size: 10px; font-weight: 800; text-transform: uppercase;
         }
+        
+        .hidden-btn { display: none; }
     </style>
 </head>
 <body>
@@ -71,10 +73,16 @@
             </div>
         </div>
         
-        <button id="connectBtn" class="glass px-8 py-3.5 rounded-2xl text-sm font-bold border border-white/20 hover:bg-white/10 transition flex items-center gap-3">
-            <i class="fa-solid fa-wallet text-[#14F195]"></i> 
-            <span>Connect Wallet</span>
-        </button>
+        <div class="flex items-center gap-4">
+            <a href="https://github.com/your-username/solana-passport" target="_blank" class="glass px-5 py-3.5 rounded-2xl text-xs font-bold border border-white/10 hover:bg-white/10 transition flex items-center gap-2">
+                <i class="fa-brands fa-github text-xl"></i>
+                <span class="hidden md:inline">Repository</span>
+            </a>
+            <button id="connectBtn" class="glass px-8 py-3.5 rounded-2xl text-sm font-bold border border-white/20 hover:bg-white/10 transition flex items-center gap-3">
+                <i class="fa-solid fa-wallet text-[#14F195]"></i> 
+                <span>Connect Wallet</span>
+            </button>
+        </div>
     </nav>
 
     <main class="container mx-auto px-6 py-12">
@@ -116,25 +124,32 @@
             </div>
 
             <div class="space-y-6">
-                <div class="glass p-10 relative overflow-hidden h-[280px] flex flex-col justify-between border-l-4 border-[#14F195]">
+                <div class="glass p-10 relative overflow-hidden h-full flex flex-col justify-between border-l-4 border-[#14F195]">
                     <div class="flex justify-between items-start">
                         <span class="tag">Protocol Active</span>
                         <img src="https://www.umt.edu.pk/images/UMT-Logo.png" class="h-8 brightness-200 opacity-50">
                     </div>
 
-                    <div>
+                    <div class="py-8">
                         <p class="text-[10px] text-gray-500 font-black uppercase tracking-[0.4em] mb-1">Human Identity</p>
                         <h2 id="prevName" class="text-4xl font-black tracking-tighter text-white uppercase truncate">---</h2>
                     </div>
 
-                    <div class="flex justify-between items-end border-t border-white/10 pt-6">
-                        <div>
-                            <p class="text-[9px] text-gray-500 font-black mb-1">Verification Status</p>
-                            <p id="statusTxt" class="font-bold text-xs text-yellow-500 mono-font">AWAITING_PROOF</p>
+                    <div class="space-y-6">
+                        <div class="flex justify-between items-end border-t border-white/10 pt-6">
+                            <div>
+                                <p class="text-[9px] text-gray-500 font-black mb-1">Verification Status</p>
+                                <p id="statusTxt" class="font-bold text-xs text-yellow-500 mono-font">AWAITING_PROOF</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-gray-500 text-[10px] font-bold">SOLANA v1.1</p>
+                            </div>
                         </div>
-                        <div class="text-right">
-                            <p class="text-gray-500 text-[10px] font-bold">SOLANA v1.1</p>
-                        </div>
+
+                        <button id="solscanBtn" class="hidden-btn w-full bg-white/5 hover:bg-white/10 border border-white/10 text-white py-4 rounded-xl font-bold text-xs uppercase tracking-widest transition flex items-center justify-center gap-3">
+                            <img src="https://solscan.io/static/media/solscan-logo-light.638f36c5.svg" class="h-4">
+                            View on Solscan
+                        </button>
                     </div>
                 </div>
             </div>
@@ -148,10 +163,10 @@
         const connectBtn = document.getElementById('connectBtn');
         const prevName = document.getElementById('prevName');
         const statusTxt = document.getElementById('statusTxt');
+        const solscanBtn = document.getElementById('solscanBtn');
         
         let walletAddress = null;
 
-        // Validation Function
         function validate() {
             const isNameValid = nameIn.value.trim().length > 0;
             const isHumanChecked = humanCheck.checked;
@@ -191,13 +206,24 @@
             mintBtn.innerHTML = `<i class="fa-solid fa-circle-notch animate-spin"></i> Finalizing On Chain...`;
             mintBtn.disabled = true;
 
+            // Simulated Blockchain Interaction
             setTimeout(() => {
-                alert("Protocol Success: Identity Proven on Solana Devnet.");
                 statusTxt.innerText = "IDENTITY_PROVEN";
                 statusTxt.classList.replace('text-yellow-500', 'text-[#14F195]');
+                
                 mintBtn.innerHTML = "Success ✅";
                 mintBtn.style.background = "#9945FF";
                 mintBtn.style.color = "white";
+
+                // Show Solscan Button
+                solscanBtn.classList.remove('hidden-btn');
+                solscanBtn.classList.add('animate__animated', 'animate__fadeInUp');
+                
+                solscanBtn.onclick = () => {
+                    window.open('https://solscan.io/tx/sample-transaction-hash?cluster=devnet', '_blank');
+                };
+
+                alert("Protocol Success: Identity Proven on Solana Devnet.");
             }, 2500);
         };
     </script>
